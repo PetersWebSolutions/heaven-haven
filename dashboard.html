@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Heaven Haven Campsite</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20260923d">
+  <link rel="stylesheet" href="css/dashboard.css?v=20260923d">
+</head>
+<body>
+  <div class="dash">
+    <aside class="side" id="side">
+      <div class="side-brand"><a href="index.html"><img src="assets/logo-nav-white.png" alt="Heaven Haven Campsite"></a></div>
+      <nav class="side-nav" id="sideNav"></nav>
+      <div class="side-user">
+        <div class="avatar" id="userAvatar">A</div>
+        <div><b id="userName">Admin</b><small id="userRole">admin</small></div>
+        <button id="logoutBtn" title="Log out" aria-label="Log out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="m15 8 5 4-5 4M20 12H9"/></svg></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div style="display:flex;gap:.8rem;align-items:flex-start">
+          <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" style="width:40px;height:40px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+          <div><h1 id="pageTitle">Overview</h1><p id="pageSub"></p></div>
+        </div>
+        <div class="topbar-actions">
+          <span class="role-badge" id="roleBadge">Admin</span>
+          <a class="btn btn-soft btn-sm" href="index.html" target="_blank" rel="noopener">View website ↗</a>
+          <button class="btn btn-ghost btn-sm" id="resetBtn" title="Restore the sample data">Reset demo data</button>
+        </div>
+      </header>
+      <div id="view"></div>
+    </main>
+  </div>
+
+  <!-- Walk-in booking modal -->
+  <div class="modal" id="walkinModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel small" role="dialog" aria-modal="true" style="width:min(520px,100%)">
+      <div class="modal-head"><h3>New walk-in booking</h3><button class="modal-close" data-close aria-label="Close">✕</button></div>
+      <div class="modal-body">
+        <form id="walkinForm" style="display:grid;gap:.8rem">
+          <div class="field"><label>Accommodation</label><select id="wType"></select></div>
+          <div class="form-grid">
+            <div class="field"><label>Check-in</label><input type="date" id="wIn" required></div>
+            <div class="field"><label>Check-out</label><input type="date" id="wOut" required></div>
+            <div class="field"><label>Adults</label><input type="number" id="wAdults" min="1" value="2" required></div>
+            <div class="field"><label>Children</label><input type="number" id="wKids" min="0" value="0"></div>
+            <div class="field"><label>Guest name</label><input id="wName" required placeholder="Juan dela Cruz"></div>
+            <div class="field"><label>Mobile</label><input id="wPhone" required placeholder="09XX XXX XXXX"></div>
+          </div>
+          <p class="hint" id="wAvail" style="margin:0"></p>
+          <button class="btn btn-primary btn-block" type="submit">Save booking</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt review modal -->
+  <div class="modal" id="receiptModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel small" role="dialog" aria-modal="true" style="width:min(560px,100%)">
+      <div class="modal-head"><h3>Payment receipt</h3><button class="modal-close" data-close aria-label="Close">✕</button></div>
+      <div class="modal-body" id="receiptBody"></div>
+    </div>
+  </div>
+
+  <!-- Admin: stock request modal -->
+  <div class="modal" id="stockRequestModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel small" role="dialog" aria-modal="true" style="width:min(520px,100%)">
+      <div class="modal-head"><h3>Stock request to owner</h3><button class="modal-close" data-close aria-label="Close">✕</button></div>
+      <div class="modal-body">
+        <form id="stockRequestForm" class="form-grid">
+          <div class="field" style="grid-column:1/-1"><label>Item</label><select id="srItem"></select></div>
+          <div class="field"><label>Request type</label><select id="srType"><option value="add">Restock (add stock)</option><option value="deduct">Log usage (deduct)</option></select></div>
+          <div class="field"><label>Quantity</label><input id="srQty" type="number" min="1" value="1" required></div>
+          <div class="field" style="grid-column:1/-1"><label>Reason <span class="muted">(required — shown to the owner)</span></label><textarea id="srReason" rows="3" required placeholder="e.g. Used for last night's bonfire (3 groups)"></textarea></div>
+          <p class="muted" id="srHint" style="grid-column:1/-1;margin:0;font-size:.85rem"></p>
+          <div style="grid-column:1/-1;display:flex;justify-content:flex-end;gap:.6rem;margin-top:.4rem"><button type="button" class="btn btn-soft" data-close>Cancel</button><button type="submit" class="btn btn-primary" id="srSubmit">Send request</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Itemised admin deductions for one item -->
+  <div class="modal" id="stockLogModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel small" role="dialog" aria-modal="true" style="width:min(600px,100%)">
+      <div class="modal-head"><h3 id="stockLogTitle">Admin deductions</h3><button class="modal-close" data-close aria-label="Close">✕</button></div>
+      <div class="modal-body" id="stockLogBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="js/store.js?v=20260923d"></script>
+  <script src="js/dashboard.js?v=20260923d"></script>
+</body>
+</html>

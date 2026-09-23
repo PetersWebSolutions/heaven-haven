@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heaven Haven Campsite — Private Mountain Campsite · Find peace. Make memories. Stay a while.</title>
+  <meta name="description" content="Heaven Haven Campsite is a private mountain campsite with A-frame cabins, glamping tents, bonfire nights and sunrise views above the clouds. Book your stay online.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20260923d">
+</head>
+<body>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#home" aria-label="Heaven Haven Campsite home">
+        <img src="assets/logo-nav.png" alt="Heaven Haven Campsite">
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#why">Why Choose Us</a>
+        <a href="#amenities">Amenities</a>
+        <a href="#rooms">Rooms &amp; Rates</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-primary btn-sm" data-open-booking>Book Now</button>
+        <button class="btn-login" id="loginBtn" title="Admin / Owner login">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          Login
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="home" class="hero">
+    <img class="hero-img" src="assets/hero.jpg" alt="Heaven Haven Campsite at golden hour — cabins, bonfire and a misty mountain valley">
+    <div class="hero-overlay"></div>
+  </section>
+  <div class="container hero-content">
+    <div class="hero-card">
+      <span class="eyebrow">Private mountain campsite · Above the clouds</span>
+      <h1>Your private escape into the mountains</h1>
+      <p>Cozy A-frame cabins, glamping tents, bonfire nights and sunrise over a sea of clouds — all in one exclusive, family-run campsite.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" data-open-booking>Book Your Stay</button>
+        <a class="btn btn-ghost btn-lg" href="#rooms">View Rooms &amp; Rates</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== QUICK AVAILABILITY ===================== -->
+  <div class="container avail-bar">
+    <form class="avail-inner" id="availForm">
+      <div class="field"><label for="qCheckIn">Check-in</label><input type="date" id="qCheckIn" required></div>
+      <div class="field"><label for="qCheckOut">Check-out</label><input type="date" id="qCheckOut" required></div>
+      <div class="field"><label for="qPax">Guests</label>
+        <select id="qPax"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select>
+      </div>
+      <button class="btn btn-primary" type="submit">Check Availability</button>
+    </form>
+    <div class="stats reveal">
+      <div class="stat"><b>24</b><span>Private cabins, tents &amp; pitches</span></div>
+      <div class="stat"><b>4.9★</b><span>Average guest rating</span></div>
+      <div class="stat"><b>1,200+</b><span>Happy campers hosted</span></div>
+      <div class="stat"><b>2 hrs</b><span>Drive from Metro Manila</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section id="why" class="block">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Why Choose Us</span>
+        <h2>A campsite that feels like it's yours alone</h2>
+        <div class="leaf-divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.3c-.2.5.4.9.8.5C7.5 18.5 12 15 20 13c0 0 1.5-5 1-9-3 1-4 4-4 4z"/></svg></div>
+        <p>We keep things small on purpose — fewer guests, more space, and a team that knows your name by the time the bonfire is lit.</p>
+      </div>
+      <div class="grid-3" id="whyGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== AMENITIES ===================== -->
+  <section id="amenities" class="block alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Our Amenities</span>
+        <h2>Everything you need to unplug comfortably</h2>
+        <div class="leaf-divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.3c-.2.5.4.9.8.5C7.5 18.5 12 15 20 13c0 0 1.5-5 1-9-3 1-4 4-4 4z"/></svg></div>
+        <p>Rustic on the outside, thoughtfully equipped on the inside.</p>
+      </div>
+      <div class="grid-4" id="amenityGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ROOMS & RATES ===================== -->
+  <section id="rooms" class="block">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Available Rooms &amp; Rates</span>
+        <h2>Pick your spot under the stars</h2>
+        <div class="leaf-divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.3c-.2.5.4.9.8.5C7.5 18.5 12 15 20 13c0 0 1.5-5 1-9-3 1-4 4-4 4z"/></svg></div>
+        <p>Rates are per night and include campsite entrance, parking, hot showers and use of the shared kitchen. Click any room to book.</p>
+      </div>
+      <div class="grid-3" id="roomGrid"></div>
+      <div class="rates-note reveal">
+        <span><b>Check-in</b> 2:00 PM · <b>Check-out</b> 11:00 AM</span>
+        <span><b>Extra guest</b> ₱350 / night (within max capacity)</span>
+        <span><b>Day tour</b> ₱250 / head · 8 AM – 5 PM</span>
+        <span><b>Reservation</b> 50% downpayment to secure</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section id="testimonials" class="block deep">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow" style="color:#8fd19a">Testimonials</span>
+        <h2>Stories from around the bonfire</h2>
+        <div class="leaf-divider" style="color:#8fd19a"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.3c-.2.5.4.9.8.5C7.5 18.5 12 15 20 13c0 0 1.5-5 1-9-3 1-4 4-4 4z"/></svg></div>
+        <p>Real words from guests who came for a night and left with a favourite place.</p>
+      </div>
+      <div class="grid-3" id="testiGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="block">
+    <div class="container contact-grid">
+      <div class="reveal">
+        <span class="eyebrow">Contact &amp; Location</span>
+        <h2>Come find us in the hills</h2>
+        <p style="color:var(--muted)">We're a private campsite — visits are by reservation only, so please book ahead or message us before driving up.</p>
+        <ul class="info-list">
+          <li><div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+            <div><b>Heaven Haven Campsite</b><span>Sitio Kaybuto, Brgy. Cuyambay, Tanay, Rizal, Philippines (Marcos Highway side)</span></div></li>
+          <li><div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6.2 6.2l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+            <div><b>Call / Viber / WhatsApp</b><span>0917 555 0100 · Daily 8:00 AM – 8:00 PM</span></div></li>
+          <li><div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+            <div><b>Email</b><span>hello@heavenhavencampsite.ph</span></div></li>
+          <li><div class="icon-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><b>Check-in 2:00 PM · Check-out 11:00 AM</b><span>Early check-in / late check-out subject to availability</span></div></li>
+        </ul>
+        <div class="note-box">
+          <b>How to get here:</b> From Marcos Highway (Marikina–Infanta Road), turn at the Cuyambay junction and follow the concrete road for 3.5 km. Sedans can make it; the last 300 m is gravel. Send us a message and we'll share the pin.
+        </div>
+      </div>
+      <div class="card reveal" style="cursor:default">
+        <h3>Send us a message</h3>
+        <p style="margin-bottom:1rem">Questions about group rates, events or day tours? We reply within the day.</p>
+        <form id="contactForm" class="form-grid">
+          <div class="field"><label>Name</label><input type="text" required placeholder="Juan dela Cruz"></div>
+          <div class="field"><label>Mobile</label><input type="tel" required placeholder="09XX XXX XXXX"></div>
+          <div class="field full"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+          <div class="field full"><label>Message</label><textarea rows="4" required placeholder="Hi! We're a group of 10 planning to visit on..."></textarea></div>
+          <div class="full"><button class="btn btn-primary btn-block" type="submit">Send Message</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="container">
+      <div class="foot-grid">
+        <div>
+          <img src="assets/logo-white.png" alt="Heaven Haven Campsite">
+          <p style="max-width:320px;font-size:.92rem">A private, family-run campsite in the mountains of Tanay, Rizal. Find peace. Make memories. Stay a while.</p>
+          <div class="socials">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H7.6V14h2.7v8h3.2z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm6-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM21.9 8.2c-.1-1.5-.4-2.8-1.5-3.9S18 2.8 16.5 2.7c-1.5-.1-6-.1-7.5 0-1.5.1-2.8.4-3.9 1.5S3.6 6.7 3.5 8.2c-.1 1.5-.1 6 0 7.5.1 1.5.4 2.8 1.5 3.9s2.4 1.4 3.9 1.5c1.5.1 6 .1 7.5 0 1.5-.1 2.8-.4 3.9-1.5s1.4-2.4 1.5-3.9c.1-1.5.1-6 0-7.5zm-2 9.1a3 3 0 0 1-1.7 1.7c-1.2.5-4 .4-5.3.4s-4.1.1-5.3-.4a3 3 0 0 1-1.7-1.7c-.5-1.2-.4-4-.4-5.3s-.1-4.1.4-5.3A3 3 0 0 1 7.6 5c1.2-.5 4-.4 5.3-.4s4.1-.1 5.3.4a3 3 0 0 1 1.7 1.7c.5 1.2.4 4 .4 5.3s.1 4.1-.4 5.3z"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <a href="#why">Why Choose Us</a><a href="#amenities">Amenities</a><a href="#rooms">Rooms &amp; Rates</a><a href="#testimonials">Testimonials</a><a href="#contact">Contact</a>
+        </div>
+        <div>
+          <h4>Good to know</h4>
+          <a href="#rooms">Check-in 2 PM · Check-out 11 AM</a><a href="#rooms">Day tour ₱250 / head</a><a href="#contact">Pet-friendly (leashed)</a><a href="#contact">Quiet hours 11 PM – 6 AM</a>
+        </div>
+        <div>
+          <h4>Reservations</h4>
+          <a href="tel:+639175550100">0917 555 0100</a><a href="mailto:hello@heavenhavencampsite.ph">hello@heavenhavencampsite.ph</a>
+          <a href="#" data-open-booking style="font-weight:800;color:#fff">Book online →</a>
+          <a href="#" id="footLogin" style="margin-top:1rem;font-size:.8rem;opacity:.7">Staff login</a>
+        </div>
+      </div>
+      <div class="copy"><span>© <span id="year"></span> Heaven Haven Campsite. All rights reserved.</span><span>Find peace. Make memories. Stay a while.</span></div>
+    </div>
+  </footer>
+
+  <!-- ===================== BOOKING MODAL ===================== -->
+  <div class="modal" id="bookingModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="bookingTitle">
+      <div class="modal-head">
+        <h3 id="bookingTitle">Book your stay</h3>
+        <button class="modal-close" data-close aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" id="bookingBody"></div>
+    </div>
+  </div>
+
+  <!-- ===================== LOGIN MODAL ===================== -->
+  <div class="modal" id="loginModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel small" role="dialog" aria-modal="true">
+      <div class="modal-head"><h3>Staff Login</h3><button class="modal-close" data-close aria-label="Close">✕</button></div>
+      <div class="modal-body">
+        <img src="assets/logo.png" alt="" style="height:110px;margin:0 auto 1rem">
+        <form id="loginForm" style="display:grid;gap:.9rem">
+          <div class="field"><label for="loginUser">Username</label><input id="loginUser" autocomplete="username" required placeholder="admin or owner"></div>
+          <div class="field"><label for="loginPass">Password</label><input id="loginPass" type="password" autocomplete="current-password" required placeholder="••••••••"></div>
+          <p id="loginError" style="display:none;color:var(--rose);font-size:.85rem;font-weight:700;margin:0">Invalid username or password.</p>
+          <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+        <div class="note-box" style="margin-bottom:0">
+          <b>Demo accounts</b><br>Admin: <code>admin</code> / <code>admin123</code><br>Owner: <code>owner</code> / <code>owner123</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/store.js?v=20260923d"></script>
+  <script src="js/main.js?v=20260923d"></script>
+</body>
+</html>
