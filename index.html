@@ -8,7 +8,7 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css?v=20260923d">
+  <link rel="stylesheet" href="css/styles.css?v=20260924b">
 </head>
 <body>
 
@@ -92,7 +92,7 @@
         <span class="eyebrow">Our Amenities</span>
         <h2>Everything you need to unplug comfortably</h2>
         <div class="leaf-divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.2 3.8 21.3c-.2.5.4.9.8.5C7.5 18.5 12 15 20 13c0 0 1.5-5 1-9-3 1-4 4-4 4z"/></svg></div>
-        <p>Rustic on the outside, thoughtfully equipped on the inside.</p>
+        <p>Rustic on the outside, thoughtfully equipped on the inside. Click any amenity to see photos — click again to close.</p>
       </div>
       <div class="grid-4" id="amenityGrid"></div>
     </div>
@@ -229,9 +229,53 @@
     </div>
   </div>
 
+  <!-- ===================== ROOM PHOTO POPUP ===================== -->
+  <div class="room-pop" id="roomPop" aria-hidden="true">
+    <div class="room-pop-backdrop" data-room-close></div>
+    <div class="room-pop-panel" role="dialog" aria-modal="true" aria-labelledby="roomPopTitle">
+      <button type="button" class="modal-close room-pop-x" data-room-close aria-label="Close">✕</button>
+      <div class="room-car" id="roomCar">
+        <div class="room-car-slides" id="roomCarSlides"></div>
+        <button type="button" class="car-btn car-prev" id="roomCarPrev" aria-label="Previous photo">‹</button>
+        <button type="button" class="car-btn car-next" id="roomCarNext" aria-label="Next photo">›</button>
+        <div class="car-dots" id="roomCarDots"></div>
+        <span class="car-count" id="roomCarCount"></span>
+      </div>
+      <div class="room-pop-body">
+        <div class="room-pop-top">
+          <div>
+            <h3 id="roomPopTitle"></h3>
+            <p class="room-pop-rate" id="roomPopRate"></p>
+          </div>
+          <div class="room-pop-cap" id="roomPopCap"></div>
+        </div>
+        <div class="room-notice" id="roomPopNotice"></div>
+        <h4 class="room-incl-title">What’s included</h4>
+        <ul class="incl-list" id="roomPopIncl"></ul>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="roomPopBook">Book this room</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== AMENITY COLLAGE POPUP ===================== -->
+  <div class="amenity-pop" id="amenityPop" aria-hidden="true">
+    <div class="amenity-pop-backdrop" data-amenity-close></div>
+    <div class="amenity-pop-panel" role="dialog" aria-modal="true" aria-labelledby="amenityPopTitle" data-amenity-close>
+      <div class="amenity-pop-head">
+        <div>
+          <h3 id="amenityPopTitle"></h3>
+          <p id="amenityPopSub"></p>
+        </div>
+        <button type="button" class="modal-close" data-amenity-close aria-label="Close photos">✕</button>
+      </div>
+      <div class="collage" id="amenityCollage" data-amenity-close></div>
+      <p class="collage-hint">Click again to close</p>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
-  <script src="js/store.js?v=20260923d"></script>
-  <script src="js/main.js?v=20260923d"></script>
+  <script src="js/store.js?v=20260924c"></script>
+  <script src="js/main.js?v=20260924c"></script>
 </body>
 </html>

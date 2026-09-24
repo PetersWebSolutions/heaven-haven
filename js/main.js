@@ -43,12 +43,18 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
     { icon: I.car, title: 'Easy to reach', text: 'Roughly 2 hours from Metro Manila via Marcos Highway with a concrete road to the gate. Sedan-friendly, with free parking.' },
   ];
   const AMENITIES = [
-    ['A-frame cabins & kubos', 'Nipa-roofed, fan-cooled', I.cabin], ['Glamping tents', 'Bell & safari tents on decks', I.tent],
-    ['Bonfire pits', 'Firewood included nightly', I.fire], ['Sunrise viewing deck', 'Best seat above the clouds', I.deck],
-    ['Shared kitchen & grills', 'Cookware, utensils, LPG', I.kitchen], ['Hot showers & clean CRs', 'Cleaned thrice daily', I.shower],
-    ['Wi-Fi at the lounge', 'Starlink — good enough to brag', I.wifi], ['Hammocks & lounges', 'Naps strongly encouraged', I.hammock],
-    ['Stargazing lawn', 'Zero city lights', I.star], ['Camping gear rental', 'Tents, sleeping bags, lamps', I.gear],
-    ['Sunrise café', 'Barako coffee & silog breakfast', I.coffee], ['Pet-friendly grounds', 'Leashed furry friends welcome', I.paw],
+    { id: 'cabins', title: 'A-frame cabins & kubos', sub: 'Nipa-roofed, fan-cooled', icon: I.cabin },
+    { id: 'tents', title: 'Glamping tents', sub: 'Bell & safari tents on decks', icon: I.tent },
+    { id: 'bonfire', title: 'Bonfire pits', sub: 'Firewood included nightly', icon: I.fire },
+    { id: 'deck', title: 'Sunrise viewing deck', sub: 'Best seat above the clouds', icon: I.deck },
+    { id: 'kitchen', title: 'Shared kitchen & grills', sub: 'Cookware, utensils, LPG', icon: I.kitchen },
+    { id: 'showers', title: 'Hot showers & clean CRs', sub: 'Cleaned thrice daily', icon: I.shower },
+    { id: 'wifi', title: 'Wi-Fi at the lounge', sub: 'Starlink — good enough to brag', icon: I.wifi },
+    { id: 'hammocks', title: 'Hammocks & lounges', sub: 'Naps strongly encouraged', icon: I.hammock },
+    { id: 'stars', title: 'Stargazing lawn', sub: 'Zero city lights', icon: I.star },
+    { id: 'gear', title: 'Camping gear rental', sub: 'Tents, sleeping bags, lamps', icon: I.gear },
+    { id: 'cafe', title: 'Sunrise café', sub: 'Barako coffee & silog breakfast', icon: I.coffee },
+    { id: 'pets', title: 'Pet-friendly grounds', sub: 'Leashed furry friends welcome', icon: I.paw },
   ];
   const TESTIMONIALS = [
     { name: 'Andrea V.', from: 'Quezon City · A-Frame Cabin', stars: 5, text: 'We booked one night and stayed two. The sea of clouds at sunrise was unreal, and the staff (hi May!) treated us like family. Cleanest campsite CRs I\'ve ever seen.' },
@@ -61,28 +67,138 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
 
   /* ---------- render static sections ---------- */
   $('#whyGrid').innerHTML = WHY.map(w => `<div class="card reveal"><div class="icon-badge">${w.icon}</div><h3>${w.title}</h3><p>${w.text}</p></div>`).join('');
-  $('#amenityGrid').innerHTML = AMENITIES.map(a => `<div class="amenity reveal"><div class="icon-badge">${a[2]}</div><div><b>${a[0]}</b><span>${a[1]}</span></div></div>`).join('');
+  $('#amenityGrid').innerHTML = AMENITIES.map(a => `<button type="button" class="amenity reveal" data-amenity="${a.id}" aria-expanded="false"><div class="icon-badge">${a.icon}</div><div><b>${a.title}</b><span>${a.sub}</span></div><span class="amenity-cue">Photos</span></button>`).join('');
   $('#testiGrid').innerHTML = TESTIMONIALS.map(t => `<div class="testi reveal"><div class="stars">${'★'.repeat(t.stars)}${'☆'.repeat(5 - t.stars)}</div><p>“${t.text}”</p><div class="testi-who"><div class="avatar">${t.name[0]}</div><div><b>${t.name}</b><span>${t.from}</span></div></div></div>`).join('');
   $('#year').textContent = new Date().getFullYear();
+
+  /* ---------- amenity collage popup (click to open, click again to close) ---------- */
+  let openAmenity = null;
+  function closeAmenityPop() {
+    const pop = $('#amenityPop');
+    if (!pop) return;
+    pop.classList.remove('open');
+    pop.setAttribute('aria-hidden', 'true');
+    if (!$('.modal.open')) document.body.style.overflow = '';
+    $$('.amenity.is-open').forEach(el => { el.classList.remove('is-open'); el.setAttribute('aria-expanded', 'false'); });
+    openAmenity = null;
+  }
+  function openAmenityPop(id) {
+    const a = AMENITIES.find(x => x.id === id);
+    if (!a) return;
+    if (openAmenity === id) { closeAmenityPop(); return; }
+    openAmenity = id;
+    $$('.amenity').forEach(el => {
+      const on = el.dataset.amenity === id;
+      el.classList.toggle('is-open', on);
+      el.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    $('#amenityPopTitle').textContent = a.title;
+    $('#amenityPopSub').textContent = a.sub;
+    $('#amenityCollage').innerHTML = [1, 2, 3].map(n =>
+      `<img src="assets/amenities/${id}-${n}.jpg" alt="${a.title} — photo ${n}" loading="eager">`
+    ).join('');
+    const pop = $('#amenityPop');
+    pop.classList.add('open');
+    pop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  $$('#amenityGrid .amenity').forEach(el => {
+    el.addEventListener('click', () => openAmenityPop(el.dataset.amenity));
+  });
+  $('#amenityPop').addEventListener('click', e => {
+    if (e.target.closest('[data-amenity-close]')) closeAmenityPop();
+  });
+
+  /* ---------- room photo carousel popup ---------- */
+  let roomPopId = null, carIdx = 0, carPhotos = [];
+  function closeRoomPop() {
+    const pop = $('#roomPop');
+    if (!pop) return;
+    pop.classList.remove('open');
+    pop.setAttribute('aria-hidden', 'true');
+    if (!$('.modal.open') && !($('#amenityPop') && $('#amenityPop').classList.contains('open'))) document.body.style.overflow = '';
+    roomPopId = null;
+  }
+  function showCarSlide(i) {
+    if (!carPhotos.length) return;
+    carIdx = (i + carPhotos.length) % carPhotos.length;
+    $$('#roomCarSlides img').forEach((img, n) => img.classList.toggle('on', n === carIdx));
+    $$('#roomCarDots button').forEach((d, n) => d.classList.toggle('on', n === carIdx));
+    $('#roomCarCount').textContent = `${carIdx + 1} / ${carPhotos.length}`;
+  }
+  function openRoomPop(id) {
+    const r = H.type(id);
+    if (!r) return;
+    roomPopId = id;
+    carPhotos = r.photos && r.photos.length ? r.photos : [r.img];
+    carIdx = 0;
+    $('#roomPopTitle').textContent = r.name;
+    $('#roomPopRate').textContent = `${H.peso(r.rate)} / night`;
+    $('#roomPopCap').innerHTML = `Capacity<br>${r.base} guests (max ${r.max})`;
+    const T = H.today();
+    const free = H.unitsFree(r.id, T, H.addDays(T, 1)).length;
+    const noun = r.id === 'pitch' ? (free === 1 ? 'pitch' : 'pitches') : (free === 1 ? 'room' : 'rooms');
+    const notice = $('#roomPopNotice');
+    if (!free) {
+      notice.textContent = 'Fully booked tonight';
+      notice.className = 'room-notice none';
+    } else {
+      notice.textContent = `Only ${free} ${noun} available`;
+      notice.className = 'room-notice' + (free > 3 ? ' ok' : '');
+    }
+    $('#roomPopIncl').innerHTML = (r.inclusions || r.incl).map(x => `<li>${x}</li>`).join('');
+    $('#roomCarSlides').innerHTML = carPhotos.map((src, n) => `<img src="${src}" alt="${r.name} photo ${n + 1}" class="${n === 0 ? 'on' : ''}">`).join('');
+    $('#roomCarDots').innerHTML = carPhotos.map((_, n) => `<button type="button" aria-label="Photo ${n + 1}" class="${n === 0 ? 'on' : ''}"></button>`).join('');
+    $$('#roomCarDots button').forEach((d, n) => d.addEventListener('click', () => showCarSlide(n)));
+    showCarSlide(0);
+    const pop = $('#roomPop');
+    pop.classList.add('open');
+    pop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    pop.querySelector('.room-pop-panel').scrollTop = 0;
+  }
+  $('#roomCarPrev').addEventListener('click', () => showCarSlide(carIdx - 1));
+  $('#roomCarNext').addEventListener('click', () => showCarSlide(carIdx + 1));
+  $('#roomPop').addEventListener('click', e => { if (e.target.closest('[data-room-close]')) closeRoomPop(); });
+  $('#roomPopBook').addEventListener('click', () => {
+    const id = roomPopId;
+    closeRoomPop();
+    if (id) openBooking({ typeId: id });
+  });
+  (function () {
+    const el = $('#roomCar');
+    let x0 = 0;
+    el.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+    el.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - x0;
+      if (dx > 40) showCarSlide(carIdx - 1);
+      if (dx < -40) showCarSlide(carIdx + 1);
+    }, { passive: true });
+  })();
 
   function renderRooms() {
     const T = H.today();
     $('#roomGrid').innerHTML = H.ROOM_TYPES.map(r => {
       const freeTonight = H.unitsFree(r.id, T, H.addDays(T, 1)).length;
-      return `<article class="room-card reveal" data-room="${r.id}" tabindex="0" role="button" aria-label="Book ${r.name}">
-        <div class="room-media"><img src="${r.img}" alt="${r.name}" loading="lazy"><span class="room-badge">${r.badge}</span><span class="room-rate">${H.peso(r.rate)} <small>/ night</small></span></div>
+      const nPhotos = (r.photos || [r.img]).length;
+      return `<article class="room-card reveal" data-room="${r.id}" tabindex="0" aria-label="${r.name}">
+        <div class="room-media" data-room-photos="${r.id}"><img src="${r.img}" alt="${r.name}" loading="lazy"><span class="room-badge">${r.badge}</span><span class="photo-cue">${nPhotos} photos</span><span class="room-rate">${H.peso(r.rate)} <small>/ night</small></span></div>
         <div class="room-body">
           <h3>${r.name}</h3>
           <div class="room-meta"><span>${I.users} ${r.base} pax (max ${r.max})</span><span>${I.bed} ${r.units.length} unit${r.units.length > 1 ? 's' : ''}</span></div>
           <p>${r.desc}</p>
           <div class="incl">${r.incl.map(x => `<span>${x}</span>`).join('')}</div>
-          <div class="room-foot"><span class="avail-pill ${freeTonight ? '' : 'none'}">${freeTonight ? `● ${freeTonight} available tonight` : '● Fully booked tonight'}</span><button class="btn btn-primary btn-sm">Book Now</button></div>
+          <div class="room-foot"><span class="avail-pill ${freeTonight ? '' : 'none'}">${freeTonight ? `● ${freeTonight} available tonight` : '● Fully booked tonight'}</span><button class="btn btn-primary btn-sm" data-book="${r.id}">Book Now</button></div>
         </div></article>`;
     }).join('');
     $$('.room-card').forEach(c => {
-      c.addEventListener('click', () => openBooking({ typeId: c.dataset.room }));
-      c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openBooking({ typeId: c.dataset.room }); } });
+      c.addEventListener('click', e => {
+        if (e.target.closest('[data-book]')) return;
+        openRoomPop(c.dataset.room);
+      });
+      c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRoomPop(c.dataset.room); } });
     });
+    $$('[data-book]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); openBooking({ typeId: b.dataset.book }); }));
     observeReveals();
   }
 
@@ -107,7 +223,16 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
   function openModal(id) { const m = $(id); m.classList.add('open'); m.setAttribute('aria-hidden', 'false'); document.body.style.overflow = 'hidden'; }
   function closeModal(id) { const m = $(id); m.classList.remove('open'); m.setAttribute('aria-hidden', 'true'); document.body.style.overflow = ''; }
   $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target.hasAttribute('data-close')) closeModal('#' + m.id); }));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal.open').forEach(m => closeModal('#' + m.id)); });
+  document.addEventListener('keydown', e => {
+    if ($('#roomPop') && $('#roomPop').classList.contains('open')) {
+      if (e.key === 'Escape') { closeRoomPop(); return; }
+      if (e.key === 'ArrowLeft') { showCarSlide(carIdx - 1); return; }
+      if (e.key === 'ArrowRight') { showCarSlide(carIdx + 1); return; }
+    }
+    if (e.key !== 'Escape') return;
+    if ($('#amenityPop') && $('#amenityPop').classList.contains('open')) { closeAmenityPop(); return; }
+    $$('.modal.open').forEach(m => closeModal('#' + m.id));
+  });
 
   /* ---------- quick availability bar ---------- */
   const T0 = H.today();
