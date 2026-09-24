@@ -35,12 +35,12 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
 
   /* ---------- content ---------- */
   const WHY = [
-    { icon: I.lock, title: 'Truly private', text: 'Only 24 units on 3 hectares. We never overbook, so the viewing deck, bonfire pits and trails are yours to share with just a handful of guests.' },
-    { icon: I.mountain, title: 'Sea-of-clouds sunrise', text: 'Wake up at 5:30, walk 40 steps to the deck, and watch the valley fill with clouds. Most mornings from November to May deliver.' },
-    { icon: I.tent, title: 'Glamping comfort', text: 'Real beds, clean linens, hot showers and fairy-lit cabins — camping vibes without the sore back.' },
-    { icon: I.fire, title: 'Bonfire nights', text: 'Every stay comes with a bonfire kit and firewood. Bring the marshmallows; we\'ll bring the stars.' },
-    { icon: I.family, title: 'Family & pet friendly', text: 'Wide grassy areas for kids, leashed pets welcome, and staff who genuinely love hosting families.' },
-    { icon: I.car, title: 'Easy to reach', text: 'Roughly 2 hours from Metro Manila via Marcos Highway with a concrete road to the gate. Sedan-friendly, with free parking.' },
+    { id: 'private', icon: I.lock, title: 'Truly private', img: 'assets/why/private.jpg', text: 'Only 24 units on 3 hectares. We never overbook, so the viewing deck, bonfire pits and trails are yours to share with just a handful of guests.' },
+    { id: 'sunrise', icon: I.mountain, title: 'Sea-of-clouds sunrise', img: 'assets/why/sunrise.jpg', text: 'Wake up at 5:30, walk 40 steps to the deck, and watch the valley fill with clouds. Most mornings from November to May deliver.' },
+    { id: 'glamping', icon: I.tent, title: 'Glamping comfort', img: 'assets/why/glamping.jpg', text: 'Real beds, clean linens, hot showers and fairy-lit cabins — camping vibes without the sore back.' },
+    { id: 'bonfire', icon: I.fire, title: 'Bonfire nights', img: 'assets/why/bonfire.jpg', text: 'Every stay comes with a bonfire kit and firewood. Bring the marshmallows; we\'ll bring the stars.' },
+    { id: 'family', icon: I.family, title: 'Family & pet friendly', img: 'assets/why/family.jpg', text: 'Wide grassy areas for kids, leashed pets welcome, and staff who genuinely love hosting families.' },
+    { id: 'reach', icon: I.car, title: 'Easy to reach', img: 'assets/why/reach.jpg', text: 'Roughly 2 hours from Metro Manila via Marcos Highway with a concrete road to the gate. Sedan-friendly, with free parking.' },
   ];
   const AMENITIES = [
     { id: 'cabins', title: 'A-frame cabins & kubos', sub: 'Nipa-roofed, fan-cooled', icon: I.cabin },
@@ -66,7 +66,31 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
   ];
 
   /* ---------- render static sections ---------- */
-  $('#whyGrid').innerHTML = WHY.map(w => `<div class="card reveal"><div class="icon-badge">${w.icon}</div><h3>${w.title}</h3><p>${w.text}</p></div>`).join('');
+  $('#whyGrid').innerHTML = WHY.map(w => `
+    <div class="why-card reveal" data-why="${w.id}">
+      <div class="why-track">
+        <div class="why-media"><span class="why-tag">Click to read</span><img src="${w.img}" alt="${w.title}" loading="lazy"></div>
+        <button type="button" class="why-copy" aria-expanded="false">
+          <div class="why-copy-top"><span class="icon-badge">${w.icon}</span><h3>${w.title}</h3></div>
+          <p>${w.text}</p>
+          <small class="why-cue">Click again to close</small>
+        </button>
+      </div>
+    </div>`).join('');
+  function toggleWhy(card) {
+    const open = card.classList.contains('open');
+    $$('#whyGrid .why-card').forEach(c => {
+      c.classList.remove('open');
+      const b = c.querySelector('.why-copy');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+    if (!open) {
+      card.classList.add('open');
+      card.querySelector('.why-copy').setAttribute('aria-expanded', 'true');
+    }
+  }
+  $$('#whyGrid .why-copy').forEach(btn => btn.addEventListener('click', () => toggleWhy(btn.closest('.why-card'))));
+  $$('#whyGrid .why-media').forEach(el => el.addEventListener('click', () => toggleWhy(el.closest('.why-card'))));
   $('#amenityGrid').innerHTML = AMENITIES.map(a => `<button type="button" class="amenity reveal" data-amenity="${a.id}" aria-expanded="false"><div class="icon-badge">${a.icon}</div><div><b>${a.title}</b><span>${a.sub}</span></div><span class="amenity-cue">Photos</span></button>`).join('');
   $('#testiGrid').innerHTML = TESTIMONIALS.map(t => `<div class="testi reveal"><div class="stars">${'★'.repeat(t.stars)}${'☆'.repeat(5 - t.stars)}</div><p>“${t.text}”</p><div class="testi-who"><div class="avatar">${t.name[0]}</div><div><b>${t.name}</b><span>${t.from}</span></div></div></div>`).join('');
   $('#year').textContent = new Date().getFullYear();
@@ -209,7 +233,7 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
   /* ---------- nav ---------- */
   $('#hamburger').addEventListener('click', () => $('#navLinks').classList.toggle('open'));
   $$('#navLinks a').forEach(a => a.addEventListener('click', () => $('#navLinks').classList.remove('open')));
-  const sections = ['home', 'why', 'amenities', 'rooms', 'testimonials', 'contact'].map(id => document.getElementById(id));
+  const sections = ['home', 'why', 'amenities', 'rooms', 'testimonials', 'faq', 'contact'].map(id => document.getElementById(id));
   const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { $$('#navLinks a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); } }), { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => spy.observe(s));
 
