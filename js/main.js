@@ -35,12 +35,12 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
 
   /* ---------- content ---------- */
   const WHY = [
-    { id: 'private', icon: I.lock, title: 'Truly private', img: 'assets/why/private.jpg', text: 'Only 24 units on 3 hectares. We never overbook, so the viewing deck, bonfire pits and trails are yours to share with just a handful of guests.' },
-    { id: 'sunrise', icon: I.mountain, title: 'Sea-of-clouds sunrise', img: 'assets/why/sunrise.jpg', text: 'Wake up at 5:30, walk 40 steps to the deck, and watch the valley fill with clouds. Most mornings from November to May deliver.' },
-    { id: 'glamping', icon: I.tent, title: 'Glamping comfort', img: 'assets/why/glamping.jpg', text: 'Real beds, clean linens, hot showers and fairy-lit cabins — camping vibes without the sore back.' },
-    { id: 'bonfire', icon: I.fire, title: 'Bonfire nights', img: 'assets/why/bonfire.jpg', text: 'Every stay comes with a bonfire kit and firewood. Bring the marshmallows; we\'ll bring the stars.' },
-    { id: 'family', icon: I.family, title: 'Family & pet friendly', img: 'assets/why/family.jpg', text: 'Wide grassy areas for kids, leashed pets welcome, and staff who genuinely love hosting families.' },
-    { id: 'reach', icon: I.car, title: 'Easy to reach', img: 'assets/why/reach.jpg', text: 'Roughly 2 hours from Metro Manila via Marcos Highway with a concrete road to the gate. Sedan-friendly, with free parking.' },
+    { id: 'private', icon: I.lock, title: 'Truly Private', img: 'assets/why/private.jpg', text: 'Only 24 units on 3 hectares. We never overbook, so the viewing deck, bonfire pits and trails are yours to share with just a handful of guests.' },
+    { id: 'sunrise', icon: I.mountain, title: 'Sea-of-Clouds Sunrise', img: 'assets/why/sunrise.jpg', text: 'Wake up at 5:30, walk 40 steps to the deck, and watch the valley fill with clouds. Most mornings from November to May deliver.' },
+    { id: 'glamping', icon: I.tent, title: 'Glamping Comfort', img: 'assets/why/glamping.jpg', text: 'Real beds, clean linens, hot showers and fairy-lit cabins — camping vibes without the sore back.' },
+    { id: 'bonfire', icon: I.fire, title: 'Bonfire Nights', img: 'assets/why/bonfire.jpg', text: 'Every stay comes with a bonfire kit and firewood. Bring the marshmallows; we\'ll bring the stars.' },
+    { id: 'family', icon: I.family, title: 'Family & Pet Friendly', img: 'assets/why/family.jpg', text: 'Wide grassy areas for kids, leashed pets welcome, and staff who genuinely love hosting families.' },
+    { id: 'reach', icon: I.car, title: 'Easy to Reach', img: 'assets/why/reach.jpg', text: 'Roughly 2 hours from Metro Manila via Marcos Highway with a concrete road to the gate. Sedan-friendly, with free parking.' },
   ];
   const AMENITIES = [
     { id: 'cabins', title: 'A-frame cabins & kubos', sub: 'Nipa-roofed, fan-cooled', icon: I.cabin },
@@ -57,12 +57,12 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
     { id: 'pets', title: 'Pet-friendly grounds', sub: 'Leashed furry friends welcome', icon: I.paw },
   ];
   const TESTIMONIALS = [
-    { name: 'Andrea V.', from: 'Quezon City · A-Frame Cabin', stars: 5, text: 'We booked one night and stayed two. The sea of clouds at sunrise was unreal, and the staff (hi May!) treated us like family. Cleanest campsite CRs I\'ve ever seen.' },
-    { name: 'Paolo & Trish', from: 'Pasig · Glamping Bell Tent', stars: 5, text: 'Perfect anniversary getaway. Fairy lights, bonfire, real bed inside the tent — my wife said it felt like a movie. Mark even helped us set up a surprise picnic.' },
+    { name: 'Andrea V.', from: 'Quezon City · A-Frame Cabin', stars: 5, photo: 'assets/testimonials/andrea.jpg', text: 'We booked one night and stayed two. The sea of clouds at sunrise was unreal, and the staff (hi May!) treated us like family. Cleanest campsite CRs I\'ve ever seen.' },
+    { name: 'Paolo & Trish', from: 'Pasig · Glamping Bell Tent', stars: 5, photo: 'assets/testimonials/paolo-trish.jpg', text: 'Perfect anniversary getaway. Fairy lights, bonfire, real bed inside the tent — my wife said it felt like a movie. Mark even helped us set up a surprise picnic.' },
     { name: 'The Tan Family', from: 'Makati · Family Kubo', stars: 5, text: 'Kids ran around all day, roasted marshmallows all night, and slept like logs. Private grill was a huge plus. Already booked again for December.' },
     { name: 'Kalikasan Outdoor Club', from: 'Antipolo · Tent Pitches', stars: 5, text: 'Brought 14 members for a team-building weekend. Great space, super affordable pitches, and Vincent kept the bonfire going until 1 AM. Highly recommended for groups.' },
-    { name: 'Bea A.', from: 'Taguig · Treehouse Loft', stars: 5, text: 'Solo trip to reset. The treehouse balcony above the fog, barako coffee in hand, zero notifications. Exactly what I needed. The road up is easy even in a sedan.' },
-    { name: 'Miguel S.', from: 'Cavite · Safari Tent', stars: 4, text: 'Beautiful place and very peaceful. Rained on our first night but the tent held up perfectly. Wish there were more food options, but the café breakfast was solid.' },
+    { name: 'Bea A.', from: 'Taguig · Treehouse Loft', stars: 5, photo: 'assets/testimonials/bea.jpg', text: 'Solo trip to reset. The treehouse balcony above the fog, barako coffee in hand, zero notifications. Exactly what I needed. The road up is easy even in a sedan.' },
+    { name: 'Miguel S.', from: 'Cavite · Safari Tent', stars: 4, photo: 'assets/testimonials/miguel.jpg', text: 'Beautiful place and very peaceful. Rained on our first night but the tent held up perfectly. Wish there were more food options, but the café breakfast was solid.' },
   ];
 
   /* ---------- render static sections ---------- */
@@ -92,8 +92,40 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
   $$('#whyGrid .why-copy').forEach(btn => btn.addEventListener('click', () => toggleWhy(btn.closest('.why-card'))));
   $$('#whyGrid .why-media').forEach(el => el.addEventListener('click', () => toggleWhy(el.closest('.why-card'))));
   $('#amenityGrid').innerHTML = AMENITIES.map(a => `<button type="button" class="amenity reveal" data-amenity="${a.id}" aria-expanded="false"><div class="icon-badge">${a.icon}</div><div><b>${a.title}</b><span>${a.sub}</span></div><span class="amenity-cue">Photos</span></button>`).join('');
-  $('#testiGrid').innerHTML = TESTIMONIALS.map(t => `<div class="testi reveal"><div class="stars">${'★'.repeat(t.stars)}${'☆'.repeat(5 - t.stars)}</div><p>“${t.text}”</p><div class="testi-who"><div class="avatar">${t.name[0]}</div><div><b>${t.name}</b><span>${t.from}</span></div></div></div>`).join('');
+  $('#testiGrid').innerHTML = TESTIMONIALS.map(t => {
+    const face = t.photo
+      ? `<img class="avatar-photo" src="${t.photo}" alt="${t.name}">`
+      : t.name.replace(/^The\s+/i, '')[0];
+    return `<div class="testi reveal"><div class="stars">${'★'.repeat(t.stars)}${'☆'.repeat(5 - t.stars)}</div><p>“${t.text}”</p><div class="testi-who"><div class="avatar${t.photo ? ' has-photo' : ''}">${face}</div><div><b>${t.name}</b><span>${t.from}</span></div></div></div>`;
+  }).join('');
   $('#year').textContent = new Date().getFullYear();
+
+  /* ---------- add a review ---------- */
+  let reviewStars = 5;
+  function paintStars(n) {
+    reviewStars = n;
+    $('#reviewStars').value = n;
+    $$('#starPick button').forEach(b => b.classList.toggle('on', +b.dataset.star <= n));
+  }
+  function openReview() {
+    $('#reviewForm').reset();
+    $('#reviewForm').hidden = false;
+    $('#reviewThanks').hidden = true;
+    paintStars(5);
+    openModal('#reviewModal');
+    setTimeout(() => $('#reviewName').focus(), 50);
+  }
+  $('#addReviewBtn').addEventListener('click', openReview);
+  $$('#starPick button').forEach(b => {
+    b.addEventListener('click', () => paintStars(+b.dataset.star));
+    b.addEventListener('mouseenter', () => $$('#starPick button').forEach(x => x.classList.toggle('on', +x.dataset.star <= +b.dataset.star)));
+    b.addEventListener('mouseleave', () => paintStars(reviewStars));
+  });
+  $('#reviewForm').addEventListener('submit', e => {
+    e.preventDefault();
+    $('#reviewForm').hidden = true;
+    $('#reviewThanks').hidden = false;
+  });
 
   /* ---------- amenity collage popup (click to open, click again to close) ---------- */
   let openAmenity = null;
@@ -538,6 +570,12 @@ if (!window.HH || typeof window.HH.attachReceipt !== 'function') {
   function openLogin() { $('#loginError').style.display = 'none'; $('#loginForm').reset(); openModal('#loginModal'); setTimeout(() => $('#loginUser').focus(), 50); }
   $('#loginBtn').addEventListener('click', openLogin);
   $('#footLogin').addEventListener('click', e => { e.preventDefault(); openLogin(); });
+  const MAP_EMBED = 'https://www.google.com/maps?q=14.2001406,120.762559+(Heaven+Haven+Campsite)&z=16&hl=en&output=embed';
+  $('#openMapBtn').addEventListener('click', () => {
+    const frame = $('#mapPopFrame');
+    if (!frame.getAttribute('src')) frame.src = MAP_EMBED;
+    openModal('#mapModal');
+  });
   $('#loginForm').addEventListener('submit', e => {
     e.preventDefault();
     const u = $('#loginUser').value.trim().toLowerCase(), p = $('#loginPass').value;
