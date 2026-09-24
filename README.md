@@ -17,7 +17,7 @@ python3 serve.py 8000   # no-cache static server (or: python3 -m http.server 800
 
 This repo is Pages-ready (`index.html` at the root, `.nojekyll` included). In the repo go to
 **Settings → Pages → Build and deployment → Source: Deploy from a branch → `main` / `(root)`**.
-The site will be published at <https://petersweb.github.io/heaven-haven/> within a minute or two.
+The site will be published at <https://peterswebsolutions.github.io/heaven-haven/> within a minute or two.
 Because the demo data lives in the browser's localStorage, every visitor gets their own sandbox copy.
 
 ## Logins (top-right "Login" button)
